@@ -6,6 +6,7 @@ let authRouter = require('./routers/auth');
 let newuserRouter = require('./routers/newuser');
 let testRouter =  require('./routers/test');
 
+let port = process.env.PORT || 3000;
 let app = express();
 app.use(express.json());
 app.use(express.urlencoded({
@@ -23,4 +24,4 @@ app.get('/', function(req, res){
     res.send('done');
 })
 
-app.listen('3030', function(){console.log('Listening to port 3030')});
+app.listen(port, function(){console.log('Listening to port 3030')});
