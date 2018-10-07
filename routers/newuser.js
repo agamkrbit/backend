@@ -10,16 +10,30 @@ router.use(function(req, res, next){
 });
 
 router.post('/create', function(req, res){
-    let newUser = new User(req.body);
-    newUser.save(function(err){
+    let existedUser = User.find({email : req.body.email }, function(err, adv){
         if(err){
             res.status('401').json({
-                message : 'internal error'
+                message : 'Internal error'
             })
         }else{
-            res.status('200').json({
-                message : 'sucessfully created user'
-            })
+            if(adv){
+                res.status('406').json({
+                    message : 'User already registed!'
+                })
+            }else{
+                let newUser = new User(req.body);
+                newUser.save(function(err){
+                    if(err){
+                        res.status('401').json({
+                            message : 'Internal error'
+                        })
+                    }else{
+                        res.status('201').json({
+                            message : 'sucessfully created user'
+                        })
+                    }
+                })
+            }
         }
     })
 });

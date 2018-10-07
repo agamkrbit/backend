@@ -6,7 +6,7 @@ let secret = require('../config/jwt_config').secret;
 
 router.post('/login', function(req, res){
     if(req.body.username && req.body.password){
-        User.findOne({name : req.body.name, password :  req.body.password},function(err, adv){
+        User.findOne({email : req.body.username, password :  req.body.password},function(err, adv){
             if(err){
                 res.status(500).json({
                     message : 'internal error'
