@@ -34,7 +34,7 @@ router.post('/login', function(req, res){
                 })
             }else{
                 res.status(404).json({
-                    message : 'Username is not registered',
+                    message : 'username or password is wrong!',
                 })
             }
             
