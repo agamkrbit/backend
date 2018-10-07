@@ -44,7 +44,7 @@ router.get('/trending', function(req, res){
                 message : 'internal error',
                 code : '401'
             })
-        }else{x
+        }else{
             let tests = val.map((value) => {
                 return {
                     id : value.id,
