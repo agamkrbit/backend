@@ -17,7 +17,7 @@ router.post('/create', function(req, res){
                 code : '500'
             })
         }else{
-            if(adv.firstname){
+            if(adv){
                 res.status('406').json({
                     message : 'User already registed!',
                     code : '406'
