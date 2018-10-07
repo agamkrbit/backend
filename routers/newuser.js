@@ -31,9 +31,26 @@ router.post('/create', function(req, res){
                             code : '500'
                         })
                     }else{
-                        res.status('201').json({
-                            message : 'sucessfully created user',
-                            code : '201'
+                        let user = {
+                            firstname : req.body.firstname,
+                            lastname : req.body.lastname,
+                            email : req.body.email,
+                            password : req.body.password
+                        }
+                        jsonwebtoken.sign(user, secret,function(err, token){
+                            if(err){
+                                console.log(err);
+                                res.status(500).json({
+                                    message : 'Internal error',
+                                    code : '500'
+                                }) 
+                            }else{
+                                res.status(201).json({
+                                    message : 'sucessfully created user',
+                                    token : token,
+                                    code : '201'
+                                })
+                            }
                         })
                     }
                 })
