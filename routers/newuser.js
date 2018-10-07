@@ -10,14 +10,14 @@ router.use(function(req, res, next){
 });
 
 router.post('/create', function(req, res){
-    let existedUser = User.find({email : req.body.email }, function(err, adv){
+    let existedUser = User.findOne({email : req.body.email }, function(err, adv){
         if(err){
             res.status('500').json({
                 message : 'Internal error',
                 code : '500'
             })
         }else{
-            if(adv){
+            if(adv.firstname){
                 res.status('406').json({
                     message : 'User already registed!',
                     code : '406'
