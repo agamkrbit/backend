@@ -23,11 +23,11 @@ router.post('/login', function(req, res){
                     if(err){
                         console.log(err);
                         res.status(500).json({
-                            message : 'internal error'
+                            message : 'Internal error'
                         }) 
                     }else{
                         res.status(200).json({
-                            message : 'sucess',
+                            message : 'Sucess',
                             token : token
                         })
                     }
@@ -40,8 +40,8 @@ router.post('/login', function(req, res){
             
         })
     }else{
-        res.status(401).json({
-            message : 'missing parameters'
+        res.status(400).json({
+            message : 'Missing parameters'
         })
     }
 })
