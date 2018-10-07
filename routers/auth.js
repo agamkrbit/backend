@@ -9,7 +9,8 @@ router.post('/login', function(req, res){
         User.findOne({email : req.body.username, password :  req.body.password},function(err, adv){
             if(err){
                 res.status(500).json({
-                    message : 'internal error'
+                    message : 'internal error',
+                    code : '500'
                 }) 
             }
             if(adv){
@@ -23,25 +24,29 @@ router.post('/login', function(req, res){
                     if(err){
                         console.log(err);
                         res.status(500).json({
-                            message : 'Internal error'
+                            message : 'Internal error',
+                            code : '500'
                         }) 
                     }else{
                         res.status(200).json({
                             message : 'Sucess',
-                            token : token
+                            token : token,
+                            code : '200'
                         })
                     }
                 })
             }else{
                 res.status(404).json({
                     message : 'username or password is wrong!',
+                    code : '404'
                 })
             }
             
         })
     }else{
         res.status(400).json({
-            message : 'Missing parameters'
+            message : 'Missing parameters',
+            code : '400'
         })
     }
 })
