@@ -1,4 +1,5 @@
 let express = require('express');
+let cors = require('cors');
 
 //routers
 let userRouter = require('./routers/user');
@@ -8,6 +9,7 @@ let testRouter =  require('./routers/test');
 
 let port = process.env.PORT || 3000;
 let app = express();
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({
     extended : true
