@@ -8,7 +8,7 @@ router.use(function(req, res, next){
 });
 
 router.get('/all', function(req, res){
-    Test.find({categories : {$in : req.body.categories}}, function(err, val){
+    Test.find({categories : {$in : req.body.categories || ['SSC']}}, function(err, val){
         if(err){
             res.status('500').json({
                 message : 'internal error',
@@ -38,7 +38,7 @@ router.get('/all', function(req, res){
 });
 
 router.get('/trending', function(req, res){
-    Test.find({categories : {$in : req.body.categories || []}}, function(err, val){
+    Test.find({categories : {$in : req.body.categories || ['SSC']}}, function(err, val){
         if(err){
             res.status('401').json({
                 message : 'internal error',
