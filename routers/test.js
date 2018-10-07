@@ -10,8 +10,9 @@ router.use(function(req, res, next){
 router.get('/all', function(req, res){
     Test.find({categories : {$in : req.body.categories}}, function(err, val){
         if(err){
-            res.status('401').json({
-                message : 'internal error'
+            res.status('500').json({
+                message : 'internal error',
+                code : '500'
             })
         }else{
             let tests = val.map((value) => {
@@ -29,19 +30,21 @@ router.get('/all', function(req, res){
             });
             res.status('200').json({
                 message : 'success',
-                tests : tests
+                tests : tests,
+                code : '200'
             })
         }
     })
 });
 
 router.get('/trending', function(req, res){
-    Test.find({categories : {$in : req.body.categories}}, function(err, val){
+    Test.find({categories : {$in : req.body.categories || []}}, function(err, val){
         if(err){
             res.status('401').json({
-                message : 'internal error'
+                message : 'internal error',
+                code : '401'
             })
-        }else{
+        }else{x
             let tests = val.map((value) => {
                 return {
                     id : value.id,
@@ -57,7 +60,8 @@ router.get('/trending', function(req, res){
             });
             res.status('200').json({
                 message : 'success',
-                tests : tests
+                tests : tests,
+                code : '200'
             })
         }
     });

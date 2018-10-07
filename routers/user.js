@@ -16,7 +16,8 @@ router.use(function(req, res, next){
         jsonwebtoken.verify(bearerToken, secret, function(err, decode){
             if(err){
                 res.status('401').json({
-                    message : 'internal error'
+                    message : 'Unauthorised',
+                    code : '401'
                 })
             }
             req.user = decode;
@@ -24,7 +25,8 @@ router.use(function(req, res, next){
         })
     }else{
         res.status('401').json({
-            message : 'unauthorised'
+            message : 'unauthorised',
+            code : '401'
         })
     }
 })
@@ -32,21 +34,24 @@ router.use(function(req, res, next){
 router.get('/details', function(req, res){
     res.status(200).json({
         user : req.user,
-        message : 'sucess'
+        message : 'sucess',
+        code : '200'
     })
 });
 
 router.get('/settings', function(req, res){
     User.findOne({email : req.user.email}, function(err, data){
         if(err){
-            res.status('401').json({
-                message : 'internal error'
+            res.status('500').json({
+                message : 'Internal error',
+                code : '401'
             })
         }else{
             let settings = data.settings || [];
             res.status('200').json({
                 message : 'sucess',
-                settings : settings
+                settings : settings,
+                code : '200'
             })
         }
     })
@@ -55,13 +60,15 @@ router.get('/settings', function(req, res){
 router.put('/settings', function(req, res){
     User.updateOne({email : req.user.email}, {settings : req.body.settings}, function(err, raw){
         if(err){
-            res.status('401').json({
-                message : 'internal error'
+            res.status('500').json({
+                message : 'internal error',
+                code : 'Interal Error'
             })
         }else{
             res.status('200').json({
                 message : 'sucess',
-                settings : req.body.settings
+                settings : req.body.settings,
+                code : '200'
             })
         }
     });
