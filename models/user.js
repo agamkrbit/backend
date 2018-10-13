@@ -7,7 +7,7 @@ let userSchema = new mongoose.Schema({
     email : {type : String, required : true, unique : true, index : true},
     password: {type : String, required : true},
     age : {type : String, required : true},
-    settings : settingsSchema
+    settings : [settingsSchema]
 });
 
 module.exports = userSchema;
