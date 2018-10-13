@@ -32,10 +32,35 @@ router.use(function(req, res, next){
 })
 
 router.get('/details', function(req, res){
-    res.status(200).json({
-        user : req.user,
-        message : 'sucess',
-        code : '200'
+    User.findOne({email : req.user.email}, function(err, data){
+        if(err){
+            res.status(500).send({
+                message : 'Internal error',
+                code : '500'
+            })
+        }else{
+            let user = {
+                firstname : data.firstname,
+                lastname : data.lastname,
+                email : data.email,
+                password : data.password
+            }
+            jsonwebtoken.sign(user, secret,function(err, token){
+                if(err){
+                    console.log(err);
+                    res.status(500).json({
+                        message : 'Internal error',
+                        code : '500'
+                    }) 
+                }else{
+                    res.status(200).json({
+                        message : 'Sucess',
+                        token : token,
+                        code : '200'
+                    })
+                }
+            })
+        }
     })
 });
 
