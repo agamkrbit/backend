@@ -95,6 +95,7 @@ router.put('/settings', function(req, res){
             intertrestedTopic : val
         }
     })
+    
     User.updateOne({email : req.user.email}, {settings : settings}, function(err, raw){
         if(err){
             res.status('500').json({
