@@ -10,7 +10,8 @@ let testSchema = new mongoose.Schema({
     timeLimit : {type : Number , default : 0},
     noOfQuestions : {type : Number, default : 0},
     categories : [{type: String}],
-    subCategories : [{categories : String, value : [String]}]
+    subCategories : [{categories : String, value : [String]}],
+    timestamp : { type : Date , default : new Date().toISOString()}
 });
 
 module.exports = testSchema;

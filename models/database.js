@@ -13,5 +13,6 @@ let User =  mongoose.model('users', userSchema);
 let Test = mongoose.model('tests', testSchema);
 module.exports = {
     User,
-    Test
+    Test,
+    mongoose
 };
