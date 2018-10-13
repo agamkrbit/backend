@@ -8,7 +8,7 @@ router.use(function(req, res, next){
 });
 
 router.get('/all', function(req, res){
-    Test.find({categories : {$in : req.body.categories || ['SSC']}}, function(err, val){
+    Test.find({categories : {$in : req.body.categories || ['SSC:CGL']}}, function(err, val){
         if(err){
             res.status('500').json({
                 message : 'internal error',
@@ -40,9 +40,9 @@ router.get('/all', function(req, res){
 router.get('/trending', function(req, res){
     
     Test.aggregate([
-        {$match : {categories : {$in : req.body.categories || ['SSC']}}},
+        {$match : {categories : {$in : req.body.categories || ['SSC:CGL']}}},
         {$sort : { noUserLike : 1}},
-        {$limit : 10}
+        {$limit : 20}
     ]).exec(function(err , val){
         if(err){
             res.status('500').json({
@@ -72,12 +72,12 @@ router.get('/trending', function(req, res){
     });
 });
 
-router.get('/trending', function(req, res){
+router.get('/recent', function(req, res){
     
     Test.aggregate([
-        {$match : {categories : {$in : req.body.categories || ['SSC']}}},
-        {$sort : { noUserLike : 1}},
-        {$limit : 10}
+        {$match : {categories : {$in : req.body.categories || ['SSC:CGL']}}},
+        {$sort : { timestamp : 1}},
+        {$limit : 20}
     ]).exec(function(err , val){
         if(err){
             res.status('500').json({
