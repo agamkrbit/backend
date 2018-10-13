@@ -45,7 +45,7 @@ router.put('/details', function(req, res){
     if( firstname && lastname){
         User.updateOne({email : req.user.email}, 
             {firstname : firstname, lastname : lastname},
-            function(err, res){
+            function(err, resq){
                 if(err){
                     res.status(500).json({
                         message : 'internal error',
