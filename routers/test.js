@@ -7,8 +7,10 @@ router.use(function(req, res, next){
     next();
 });
 
-router.get('/all', function(req, res){
-    Test.find({categories : {$in : req.body.categories || ['SSC:CGL']}}, function(err, val){
+router.get('/all/:categories*?', function(req, res){
+    categories = req.params.categories || '';
+    categories = categories.split(',').filter(val => val.length > 0);
+    Test.find(categories.length > 0 ? {categories : { $in :categories}} : {}, function(err, val){
         if(err){
             res.status('500').json({
                 message : 'internal error',
@@ -37,10 +39,11 @@ router.get('/all', function(req, res){
     })
 });
 
-router.get('/trending', function(req, res){
-    
+router.get('/trending/:categories*?', function(req, res){
+    categories = req.params.categories || '';
+    categories = categories.split(',').filter(val => val.length > 0);
     Test.aggregate([
-        {$match : {categories : {$in : req.body.categories || ['SSC:CGL']}}},
+        {$match : categories.length > 0 ? {categories : {$in : categories}} : {}},
         {$sort : { noUserLike : 1}},
         {$limit : 20}
     ]).exec(function(err , val){
@@ -72,10 +75,11 @@ router.get('/trending', function(req, res){
     });
 });
 
-router.get('/recent', function(req, res){
-    
+router.get('/recent/:categories*?', function(req, res){
+    categories = req.params.categories || '';
+    categories = categories.split(',').filter(val => val.length > 0);
     Test.aggregate([
-        {$match : {categories : {$in : req.body.categories || ['SSC:CGL']}}},
+        {$match : categories.length > 0 ? {categories : {$in : categories}} : {}},
         {$sort : { timestamp : 1}},
         {$limit : 20}
     ]).exec(function(err , val){

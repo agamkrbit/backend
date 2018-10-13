@@ -39,6 +39,37 @@ router.get('/details', function(req, res){
     })
 });
 
+router.put('/details', function(req, res){
+    let firstname = req.body.firstname || '';
+    let lastname = req.body.firstname || '';
+    if( firstname && lastname){
+        Test.updateOne({email : req.user.email}, 
+            {firstname : firstname, lastname : lastname},
+            function(err, res){
+                if(err){
+                    res.status(500).json({
+                        message : 'internal error',
+                        code : '500'
+                    })
+                }else{
+                    res.status(200).json({
+                        message : 'success',
+                        data : {
+                            firstname,
+                            lastname
+                        },
+                        code : '200'
+                    })
+                }
+            })
+    }else{
+        res.status(400).json({
+            message : 'invald inputs',
+            code : '400'
+        })
+    }
+})
+
 router.get('/settings', function(req, res){
     User.findOne({email : req.user.email}, function(err, data){
         if(err){
