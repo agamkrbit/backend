@@ -43,22 +43,11 @@ router.get('/details', function(req, res){
                 firstname : data.firstname,
                 lastname : data.lastname,
                 email : data.email,
-                password : data.password
             }
-            jsonwebtoken.sign(user, secret,function(err, token){
-                if(err){
-                    console.log(err);
-                    res.status(500).json({
-                        message : 'Internal error',
-                        code : '500'
-                    }) 
-                }else{
-                    res.status(200).json({
-                        message : 'Sucess',
-                        token : token,
-                        code : '200'
-                    })
-                }
+            res.status(200).send({
+                message : 'success',
+                code : '200',
+                user : user
             })
         }
     })
