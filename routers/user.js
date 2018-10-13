@@ -50,7 +50,7 @@ router.get('/settings', function(req, res){
             let settings = data.settings || [];
             res.status('200').json({
                 message : 'sucess',
-                settings : settings,
+                settings : settings.map(val => val.intertrestedTopic).join(','),
                 code : '200'
             })
         }
@@ -58,11 +58,17 @@ router.get('/settings', function(req, res){
 })
 
 router.put('/settings', function(req, res){
-    User.updateOne({email : req.user.email}, {settings : req.body.settings}, function(err, raw){
+    let settings = req.body.settings || '';
+    settings = settings.split(',').map((val) => {
+        return{
+            intertrestedTopic : val
+        }
+    })
+    User.updateOne({email : req.user.email}, {settings : settings}, function(err, raw){
         if(err){
             res.status('500').json({
                 message : 'internal error',
-                code : 'Interal Error'
+                code : '500'
             })
         }else{
             res.status('200').json({
