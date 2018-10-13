@@ -43,7 +43,7 @@ router.put('/details', function(req, res){
     let firstname = req.body.firstname || '';
     let lastname = req.body.firstname || '';
     if( firstname && lastname){
-        Test.updateOne({email : req.user.email}, 
+        User.updateOne({email : req.user.email}, 
             {firstname : firstname, lastname : lastname},
             function(err, res){
                 if(err){
@@ -95,7 +95,7 @@ router.put('/settings', function(req, res){
             intertrestedTopic : val
         }
     })
-    
+
     User.updateOne({email : req.user.email}, {settings : settings}, function(err, raw){
         if(err){
             res.status('500').json({
