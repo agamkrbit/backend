@@ -17,7 +17,7 @@ router.get('id/:id', function(req, res){
             res.status(200).json({
                 code : '200',
                 message : 'sucess',
-                test : data
+                test : data || []
             })
         }
     })
