@@ -26,6 +26,7 @@ router.get('/all/:categories*?', function(req, res){
                     noUserLike: value.noUserLike,
                     timeLimit : value.timeLimit,
                     noOfQuestions : value.noOfQuestions,
+                    instructions : value.instructions,
                     categories : value.categories,
                     subCategories : value.subCategories
                 }
@@ -61,6 +62,7 @@ router.get('/trending/:categories*?', function(req, res){
                     noUserAttempted : value.noUserAttempted,
                     noUserLike: value.noUserLike,
                     timeLimit : value.timeLimit,
+                    instructions : value.instructions,
                     noOfQuestions : value.noOfQuestions,
                     categories : value.categories,
                     subCategories : value.subCategories
@@ -97,6 +99,7 @@ router.get('/recent/:categories*?', function(req, res){
                     noUserAttempted : value.noUserAttempted,
                     noUserLike: value.noUserLike,
                     timeLimit : value.timeLimit,
+                    instructions : value.instructions,
                     noOfQuestions : value.noOfQuestions,
                     categories : value.categories,
                     subCategories : value.subCategories

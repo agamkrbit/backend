@@ -9,6 +9,7 @@ let testSchema = new mongoose.Schema({
     questions : [{type: String}],
     timeLimit : {type : Number , default : 0},
     noOfQuestions : {type : Number, default : 0},
+    instructions : {type : String},
     categories : [{type: String}],
     subCategories : [{categories : String, value : [String]}],
     timestamp : { type : Date , default : new Date().toISOString()}

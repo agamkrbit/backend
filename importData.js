@@ -26,7 +26,8 @@ setTimeout(() => {
                         value : val[0],
                         categories : val[1]
                     }
-                })
+                }),
+                instruction : row[9]
             })
         }
     })
