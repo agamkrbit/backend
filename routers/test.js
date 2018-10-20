@@ -6,7 +6,22 @@ router.use(function(req, res, next){
     console.log('requested for test at '+new Date().toISOString());
     next();
 });
-
+router.get('id/:id', function(req, res){
+    Test.findOne({id : req.params.id}, function(err, data){
+        if(err){
+            res.status(500).json({
+                code : '500',
+                message : 'Internal Error'
+            })
+        }else{
+            res.status(200).json({
+                code : '200',
+                message : 'sucess',
+                test : data
+            })
+        }
+    })
+})
 router.get('/all/:categories*?', function(req, res){
     categories = req.params.categories || '';
     categories = categories.split(',').filter(val => val.length > 0);
