@@ -14,6 +14,7 @@ setTimeout(() => {
                 noUserAttempted : parseInt(row[3]),
                 noUserLike: parseInt(row[4]),
                 timeLimit : parseInt(row[5]),
+                instructions : row[9],
                 noOfQuestions : parseInt(row[6]),
                 categories : row[7].split(',').map(val => val.trim()),
                 subCategories : row[8].split(':').map((val) => {
@@ -26,14 +27,14 @@ setTimeout(() => {
                         value : val[0],
                         categories : val[1]
                     }
-                }),
-                instruction : row[9]
+                })
             })
         }
     })
     .on('end', function(){
         Test.deleteMany({}, function(err, adv){
             if(!err){
+                console.log(csvData);
                 Test.insertMany(csvData, function(err, adv){
                     if(!err){
                         console.log('updated');
