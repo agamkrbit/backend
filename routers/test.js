@@ -6,7 +6,7 @@ router.use(function(req, res, next){
     console.log('requested for test at '+new Date().toISOString());
     next();
 });
-router.get('id/:id', function(req, res){
+router.get('/id/:id', function(req, res){
     Test.findOne({id : req.params.id}, function(err, data){
         if(err){
             res.status(500).json({
